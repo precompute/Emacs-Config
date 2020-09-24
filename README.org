@@ -1,0 +1,15 @@
+#+TITLE: Emacs Config
+
+#+HTML: <img src="splash.jpg" align="center">
+
+* Emacs
+
+Emacs is awesome.
+Unfortunately, my config is a mess.
+This is my config, sanitized.
+
+I use Emacs 28, the =feature/native-comp= branch.
+
+I use an Emacs Starter, named *DOOM*, that makes my life easier.
+Commit for this configuration: =1456108d5bef89195b2b63f962e0ae9d24f4c652=
+Check it out [[https://github.com/hlissner/doom-emacs][here]].
