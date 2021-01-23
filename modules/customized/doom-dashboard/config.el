@@ -60,7 +60,7 @@ PLIST can have the following properties:
     Run FORM when the button is pushed.")
 
 (defvar +doom-dashboard--last-cwd nil)
-(defvar +doom-dashboard--width 80)
+(defvar +doom-dashboard--width 90)
 (defvar +doom-dashboard--old-fringe-indicator fringe-indicator-alist)
 (defvar +doom-dashboard--pwd-alist ())
 (defvar +doom-dashboard--reload-timer nil)
@@ -325,6 +325,9 @@ controlled by `+doom-dashboard-pwd-policy'."
 (defun +doom-dashboard--center (len s)
   (concat (make-string (ceiling (max 0 (- len (length s))) 2) ? )
           s))
+
+(defun +doom-dashboard--left (len s)
+  (concat s))
 
 (defun +doom-dashboard--get-pwd ()
   (let ((lastcwd +doom-dashboard--last-cwd)

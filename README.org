@@ -9,7 +9,9 @@ Unfortunately, my config is a mess.
 This is my config, sanitized.
 
 I use Emacs 28, the =feature/native-comp= branch.
+Commit for this configuration: =400f620f24b90540f71673a998c41327237330be=
+Commit =32c6732d16385f242b1109517f25e9aefd6caa5c= ("* lisp/emacs-lisp/byte-run.el (make-obsolete): Make `when` mandatory") was reverted because it broke packages.
 
 I use an Emacs Starter, named *DOOM*, that makes my life easier.
-Commit for this configuration: =1456108d5bef89195b2b63f962e0ae9d24f4c652=
+Commit for this configuration: =3f2c4b80e9adf1c7809e3fe3c299030cbcc7de33=
 Check it out [[https://github.com/hlissner/doom-emacs][here]].

@@ -16,7 +16,7 @@
 
 
 ;;
-;;; Variables
+;;;; Variables
 
 (defcustom +modeline-height 31
   "The height of the modeline.
@@ -48,7 +48,7 @@ side of the modeline, and whose CDR is the right-hand side.")
 
 
 ;;
-;;; Faces
+;;;; Faces
 
 (defface doom-modeline-bar '((t (:inherit highlight)))
   "Face used for left-most bar on the mode-line of an active window.")
@@ -66,9 +66,9 @@ side of the modeline, and whose CDR is the right-hand side.")
 
 
 ;;
-;;; Helpers
+;;;; Helpers
 
-;;; `active'
+;;;; `active'
 (defvar +modeline--active-window (selected-window))
 
 (defun +modeline-active ()
@@ -165,9 +165,7 @@ LHS and RHS will accept."
      ,@(if (plist-get plist :local) `((make-variable-buffer-local ',name)))
      (put ',name 'risky-local-variable t)))
 
-
-;;
-;;; Segments
+;;;; Segments
 
 
 (def-modeline-var! +modeline-format-left nil
@@ -179,7 +177,7 @@ LHS and RHS will accept."
   :local t)
 
 
-;;; `+modeline-bar'
+;;;;; `+modeline-bar'
 (def-modeline-var! +modeline-bar "")
 
 (defvar +modeline-active-bar "")
@@ -220,7 +218,7 @@ LHS and RHS will accept."
         (+modeline-refresh-bars-h)))))
 
 
-;;; `+modeline-matches'
+;;;;; `+modeline-matches'
 (use-package! anzu
   :after-call isearch-mode
   :config
@@ -340,18 +338,28 @@ Requires `anzu', also `evil-anzu' if using `evil-mode' for compatibility with
           +modeline-modes))))
 
 
-;;; `+modeline-modes'
+;;;;; `+modeline-modes'
 (def-modeline-var! +modeline-modes ; remove minor modes
   '(""
     (:propertize mode-name
-     face vc-edited-state
+     face '(modeline-mode variable-pitch)
+     mouse-face doom-modeline-highlight
+     slant oblique
+     box 2)
+    mode-line-process "%n" ""))
+
+;;;;; `+modeline-project-mode'
+(def-modeline-var! +modeline-project-mode
+  '(""
+    (:propertize mode-name
+     face '(font-lock-keyword-face variable-pitch)
      mouse-face doom-modeline-highlight
      slant oblique
      box 2)
     mode-line-process "%n" ""))
 
 
-;;; `+modeline-buffer-identification'
+;;;;; `+modeline-buffer-identification'
 (defvar-local +modeline--buffer-id-cache nil)
 
 ;; REVIEW Generating the buffer's file name can be relatively expensive.
@@ -383,19 +391,19 @@ Requires `anzu', also `evil-anzu' if using `evil-mode' for compatibility with
   '((:eval
      (propertize
       (or +modeline--buffer-id-cache "%b")
-      'face (cond ((buffer-modified-p) '(error bold mode-line-buffer-id))
-                  ((+modeline-active)  'mode-line-buffer-id))
+      'face (cond ((buffer-modified-p) '(error variable-pitch mode-line-buffer-id bold))
+                  ((+modeline-active)  '(variable-pitch mode-line-buffer-id)))
       'help-echo (or +modeline--buffer-id-cache (buffer-name))))
-    (buffer-read-only (:propertize " RO" face warning))))
+    (buffer-read-only (:propertize " RO" variable-pitch warning face))))
 
 
-;;; `+modeline-position'
+;;;;; `+modeline-position'
 (def-modeline-var! +modeline-position
   '(""
-    (:propertize " %p " face isearch-fail)
-    (:propertize " %l " face escape-glyph)))
+    (:propertize " %p " face '(variable-pitch isearch-fail))
+    (:propertize " %l " face '(modeline-line variable-pitch))))
 
-;;; `+modeline-checker'
+;;;;; `+modeline-checker'
 (def-modeline-var! +modeline-checker nil
   "Displays color-coded error status & icon for the current buffer."
   :local t)
@@ -422,13 +430,13 @@ Requires `anzu', also `evil-anzu' if using `evil-mode' for compatibility with
                               warning
                               info))))
                (+modeline-format-no-icon "Error-free!" 'success)))
-            (`running     (+modeline-format-no-icon "(Running...)" 'mode-line-inactive "(Running...)"))
-            (`warn        (+modeline-format-no-icon "(Warning!)" 'warning "(Warning!)")) ;;doesn't work?!
-            (`errored     (+modeline-format-no-icon "(Errored!)" 'error "(Errored!)"))
-            (`interrupted (+modeline-format-no-icon "(Interrupted)" 'mode-line-inactive "(Interrupted)"))
-            (`suspicious  (+modeline-format-no-icon "(Suspicious)" 'error "(Suspicious)"))))))
+            (`running     (+modeline-format-no-icon "(Running...)" '(variable-pitch mode-line-inactive) "(Running...)"))
+            (`warn        (+modeline-format-no-icon "(Warning!)" '(variable-pitch warning) "(Warning!)")) ;;doesn't work?!
+            (`errored     (+modeline-format-no-icon "(Errored!)" '(variable-pitch error) "(Errored!)"))
+            (`interrupted (+modeline-format-no-icon "(Interrupted)" '(variable-pitch mode-line-inactive) "(Interrupted)"))
+            (`suspicious  (+modeline-format-no-icon "(Suspicious)" '(variable-pitch error) "(Suspicious)"))))))
 
-;;; `+modeline-selection-info'
+;;;;; `+modeline-selection-info'
 (defsubst +modeline--column (pos)
   "Get the column of the position `POS'."
   (save-excursion (goto-char pos)
@@ -478,7 +486,7 @@ lines are selected, or the NxM dimensions of a block selection.")
   (add-hook 'deactivate-mark-hook #'+modeline-remove-selection-segment-h))
 
 
-;;; `+modeline-encoding'
+;;;;; `+modeline-encoding'
 (def-modeline-var! +modeline-encoding
   `(:eval
     (let ((sys (coding-system-plist buffer-file-coding-system))
@@ -498,21 +506,20 @@ lines are selected, or the NxM dimensions of a block selection.")
       eol-mnemonic-unix "LF"
       eol-mnemonic-undecided "??")
 
-;;; `+modeline-buffer-rev'
+;;;;; `+modeline-buffer-rev'
 (def-modeline-var! +modeline-buffer-rev
   `(:propertize
     (:eval
      (substring (vc-working-revision buffer-file-name) 0 5))
     face which-func))
 
-;;; `+modeline-workspace-name'
+;;;;; `+modeline-workspace-name'
 (def-modeline-var! +modeline-workspace-name
-  `(:propertize
-    (:eval (+workspace-current-name))
-    face hl-line))
+  `(:propertize (:eval (+workspace-current-name))
+    face '(modeline-workspace variable-pitch)))
 
 ;;
-;;; Default modeline
+;;;; Default modeline
 
 (def-modeline! :main
   '(""
@@ -524,28 +531,28 @@ lines are selected, or the NxM dimensions of a block selection.")
     +modeline-position)
   `(""
     mode-line-misc-info
-    (vc-mode ("  "
-              vc-mode ""))
+    (vc-mode ("  " vc-mode ""))
     "  "
     +modeline-encoding
     (+modeline-checker ("" +modeline-checker "  "))
-    "%I "))
+    "%I"
+    " "
+    +modeline-workspace-name
+    " "
+  ))
 
 (def-modeline! 'project
   `(" "
+    +modeline-project-mode
+    " "
     (:propertize (" " (:eval (abbreviate-file-name default-directory)))
-                 face bold))
-  '("" mode-line-misc-info +modeline-modes))
+     face '(variable-pitch bold)))
+  '("" mode-line-misc-info))
 
 (def-modeline! 'special
   '("" +modeline-matches
     " " +modeline-buffer-identification)
   '("" +modeline-modes))
-
-;; (def-modeline! pdf
-;;   '("" +modeline-matches))
-;; TODO (def-modeline! helm ...)
-
 
 ;; Other modes
 (set-modeline! :main 'default)
@@ -564,7 +571,7 @@ lines are selected, or the NxM dimensions of a block selection.")
 
 
 ;;
-;;; Bootstrap
+;;;; Bootstrap
 
 (defvar +modeline--old-format (default-value 'mode-line-format))
 

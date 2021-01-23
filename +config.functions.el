@@ -10,7 +10,8 @@
           (truncate (/ (frame-pixel-height parent-frame) 1.475)))))
 
 (after! calibredb
-  (map! :map calibredb-show-mode-map
+  (map! ;; :after calibredb-show-mode
+      :map calibredb-show-mode-map
       :n "?" #'calibredb-entry-dispatch
       :n "o" #'calibredb-find-file
       :n "O" #'calibredb-find-file-other-frame
@@ -72,18 +73,18 @@
   :commands lexic-search lexic-list-dictionary
   :config
   (map! :map lexic-mode-map
-        :n  "q"   #'lexic-return-from-lexic
+        :n "q"    #'lexic-return-from-lexic
         :nv "RET" #'lexic-search-word-at-point
-        :n  "a"   #'outline-show-all
-        :n  "h"   (cmd! (outline-hide-sublevels 3))
+        :n "a"    #'outline-show-all
+        :n "h"    (cmd! (outline-hide-sublevels 3))
         :n [tab]  #'lexic-toggle-entry
-        :n  "n"   #'lexic-next-entry
-        :n  "N"   (cmd! (lexic-next-entry t))
-        :n  "p"   #'lexic-previous-entry
-        :n  "P"   (cmd! (lexic-previous-entry t))
-        :n  "b"   #'lexic-search-history-backwards
-        :n  "f"   #'lexic-search-history-forwards
-        :n  "/"   (cmd! (call-interactively #'lexic-search))))
+        :n "n"    #'lexic-next-entry
+        :n "N"    (cmd! (lexic-next-entry t))
+        :n "p"    #'lexic-previous-entry
+        :n "P"    (cmd! (lexic-previous-entry t))
+        :n "b"    #'lexic-search-history-backwards
+        :n "f"    #'lexic-search-history-forwards
+        :n "/"    (cmd! (call-interactively #'lexic-search))))
 
 (use-package! nov
   :after nov
@@ -94,54 +95,19 @@
 (use-package! org-bullets
   :hook (org-mode . org-bullets-mode)
   :config
-  (setq org-bullets-bullet-list '("●" "○" "◇" "◆")))
-
-(define-minor-mode modus-themes-alt-mode
-  "Override Modus themes' palette variables with custom values.
-
-This is intended as a proof-of-concept.  It is, nonetheless, a
-perfectly accessible alternative, conforming with the design
-principles of the Modus themes.  It still is not as good as the
-default colours."
-  :init-value nil
-  :global t
-  (if modus-themes-alt-mode
-      (setq modus-operandi-theme-override-colors-alist
-            '(("bg-main" . "#fefcf4")
-              ("bg-dim" . "#faf6ef")
-              ("bg-alt" . "#f7efe5")
-              ("bg-hl-line" . "#f4f0e3")
-              ("bg-active" . "#e8dfd1")
-              ("bg-inactive" . "#f6ece5")
-              ("bg-region" . "#c6bab1")
-              ("bg-header" . "#ede3e0")
-              ("bg-tab-bar" . "#dcd3d3")
-              ("bg-tab-active" . "#fdf6eb")
-              ("bg-tab-inactive" . "#c8bab8")
-              ("fg-unfocused" . "#55556f"))
-            modus-vivendi-theme-override-colors-alist
-            '(("bg-main" . "#100b17")
-              ("bg-dim" . "#161129")
-              ("bg-alt" . "#181732")
-              ("bg-hl-line" . "#191628")
-              ("bg-active" . "#282e46")
-              ("bg-inactive" . "#1a1e39")
-              ("bg-region" . "#393a53")
-              ("bg-header" . "#202037")
-              ("bg-tab-bar" . "#262b41")
-              ("bg-tab-active" . "#120f18")
-              ("bg-tab-inactive" . "#3a3a5a")
-              ("fg-unfocused" . "#9a9aab")))
-    (setq modus-operandi-theme-override-colors-alist nil
-          modus-vivendi-theme-override-colors-alist nil)))
+  (setq org-bullets-bullet-list
+        '("●" "○" "◇" "◆")))
 
 (custom-set-faces!
- '(org-level-1 :extend t)
- '(org-level-2 :extend t)
- '(org-level-3 :extend t)
- '(org-level-4 :extend t)
- '(org-level-5 :extend t)
- '(org-level-6 :extend t)
+ '(org-level-1 :extend t :height 1.5)
+ '(org-level-2 :extend t :height 1.3)
+ '(org-level-3 :extend t :height 1.2)
+ '(org-level-4 :extend t :height 1.1)
+ '(org-level-5 :extend t :height 1.07)
+ '(org-level-6 :extend t :height 1.03)
  '(org-level-7 :extend t)
  '(org-level-8 :extend t)
  '(helpful-heading :extend t))
+
+(custom-set-faces!
+  '(hl-line :extend t))

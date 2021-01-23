@@ -1,4 +1,6 @@
 ;;; ~/.doom.d/+functions.el -*- lexical-binding: t; -*-
+
+;;;;;;;;functions
 ;;;; timestamp
 (defun timestamp ()
   "Insert string for the current time formatted like '2:34 PM' or 1507121460 https://emacs.stackexchange.com/questions/7250/in-org-mode-how-to-insert-timestamp-with-todays-date"
@@ -28,35 +30,41 @@
   "insert quotes in org mode"
   (interactive)
   (setq org-insert-history "quote")
-  (org-insert-structure-template org-insert-history))
+  (org-insert-structure-template org-insert-history)
+  )
 
 (defun org-insert-source-interactive-c (userlang)
   "insert source in org mode, with user input"
   (interactive "sLanguage? ")
   (setq org-insert-history (concat "src " userlang))
-  (org-insert-structure-template org-insert-history))
+  (org-insert-structure-template org-insert-history)
+  )
 
 (defun org-insert-source-c ()
   "insert source in org mode"
   (interactive)
   (setq org-insert-history "src")
-  (org-insert-structure-template org-insert-history))
+  (org-insert-structure-template org-insert-history)
+  )
 
 (defun org-insert-markdown-source-c ()
   "insert markdown source in org mode"
   (interactive)
   (setq org-insert-history "src markdown")
-  (org-insert-structure-template org-insert-history))
+  (org-insert-structure-template org-insert-history)
+  )
 
 (defun org-insert-shell-source-c ()
   "insert shell source in org mode"
   (interactive)
   (setq org-insert-history "src shell")
-  (org-insert-structure-template org-insert-history))
+  (org-insert-structure-template org-insert-history)
+  )
 
 (defun org-insert-use-history-c ()
   (interactive)
-  (org-insert-structure-template org-insert-history))
+  (org-insert-structure-template org-insert-history)
+  )
 
 ;;;;; org-id-*
 (defun org-id-update-recursively-c ()
@@ -71,14 +79,14 @@
   (let ((org-id-locations-file "/home/sys1/46/ca/.orgids")
         (recentf-used-hooks nil))
     (org-id-update-id-locations
-     (directory-files-recursively "/home/sys1/46/ca" ".org"))))
+     (directory-files-recursively "/home/sys1/46/ca"
+                                  ".org"))))
 
 ;;;; evil-window-*
 (defun evil-window-split-Cxb ()
   "Split and open buffer"
   (interactive)
   (+evil-window-split-a))
-
 (defun evil-window-vsplit-Cxb ()
   "VSplit and open buffer"
   (interactive)
@@ -88,25 +96,29 @@
   "split to the left"
   (interactive)
   (let ((evil-vsplit-window-right nil))
-    (+evil-window-vsplit-a)))
+    (+evil-window-vsplit-a))
+  )
 
 (defun evil-window-split-below-c ()
   "split to the bottom"
   (interactive)
   (let ((evil-split-window-below t))
-    (+evil-window-split-a)))
+    (+evil-window-split-a))
+  )
 
 (defun evil-window-split-above-c ()
   "split to the top"
   (interactive)
   (let ((evil-split-window-below nil))
-    (+evil-window-split-a)))
+    (+evil-window-split-a))
+  )
 
 (defun evil-window-vsplit-right-c ()
   "split to the right"
   (interactive)
   (let ((evil-vsplit-window-right t))
-    (+evil-window-vsplit-a)))
+    (+evil-window-vsplit-a))
+  )
 
 (defadvice! prompt-for-buffer (&rest _)
   :after '(evil-window-split-Cxb
@@ -117,12 +129,10 @@
   "Split and open find-file"
   (interactive)
   (+evil-window-split-a))
-
 (defun evil-window-vsplit-ff ()
   "VSplit and open find-file"
   (interactive)
   (+evil-window-vsplit-a))
-
 (defadvice! prompt-for-buffer-ff (&rest _)
   :after '(evil-window-split-ff evil-window-vsplit-ff) (counsel-find-file))
 
@@ -130,12 +140,10 @@
   "Split and open recent-files"
   (interactive)
   (+evil-window-split-a))
-
 (defun evil-window-vsplit-fr ()
   "VSplit and open recent-files"
   (interactive)
   (+evil-window-vsplit-a))
-
 (defadvice! prompt-for-buffer-fr (&rest _)
   :after '(evil-window-split-fr evil-window-vsplit-fr) (counsel-recentf))
 
@@ -146,14 +154,16 @@
   (interactive)
   (org-cycle 4)
   (outline-previous-visible-heading 1)
-  (org-cycle 64))
+  (org-cycle 64)
+  )
 
 (defun org-contract-current-heading-move-forward-c ()
   "Contract current heading and move forward"
   (interactive)
   (org-cycle 4)
   (outline-next-visible-heading 1)
-  (org-cycle 64))
+  (org-cycle 64)
+  )
 
 ;;;;; org-merge
 (defun org-merge-next-heading-c ()
@@ -162,27 +172,46 @@
   (outline-next-visible-heading 1)
   (execute-kbd-macro (kbd "<tab> d j"))
   (outline-previous-visible-heading 1)
-  (execute-kbd-macro (kbd "<tab>")))
+  (execute-kbd-macro (kbd "<tab>"))
+  )
 
 (defun org-merge-previous-heading-c ()
   "Merge previous heading in org-mode"
   (interactive)
   (outline-previous-visible-heading 1)
   (execute-kbd-macro (kbd "d d p <tab> k"))
-  (org-merge-next-heading-c))
+  (org-merge-next-heading-c)
+  )
+
+;;;;; org-id-create
+(defun org-id-create (&optional pom)
+  "Get the ID property of the entry at point-or-marker POM.
+If POM is nil, do nothing.
+Create an ID if none is present already."
+  (interactive "P")
+  (org-with-point-at (point)
+    (let ((id (org-entry-get nil "ID")))
+      (unless id
+        (progn
+          (setq id (org-id-new))
+          (org-entry-put (point) "ID" id)
+          (org-id-add-location id (or org-id-overriding-file-name (buffer-file-name (buffer-base-buffer))))
+          id)))))
 
 ;;;; shell
 (defun open-shell-split-c ()
   "Split window and open shell"
   (interactive)
   (evil-window-split)
-  ( +vterm/here 0 ))
+  ( +vterm/here 0 )
+  )
 
 (defun open-shell-vsplit-c ()
   "Vsplit window and open shell"
   (interactive)
   (evil-window-vsplit)
-  ( +vterm/here 0 ))
+  ( +vterm/here 0 )
+  )
 
 ;;;; org-timelogrefile-*
 (defun org-timelogrefile-base-c (givendate)
@@ -242,20 +271,30 @@
 ;;;; enable-writing-mode
 (defun enable-writing-mode-c ()
   (interactive)
-  (markdown-mode)
-  (turn-off-smartparens-mode)
-  (setq-local olivetti-body-width 64)
-  (olivetti-mode)
-  (mixed-pitch-mode))
+  (let ((mixed-pitch-set-height nil)
+        (markdown-hide-markup-in-view-modes nil)
+        (markdown-hide-markup nil))
+    (markdown-mode)
+    (setq markdown-hide-markup-in-view-modes nil)
+    (setq markdown-hide-markup nil)
+    (turn-off-smartparens-mode)
+    (setq-local olivetti-body-width 64)
+    (olivetti-mode)
+    (mixed-pitch-mode)
+    ))
 
 (defun enable-writing-mode-with-focus-c ()
   (interactive)
-  (markdown-mode)
-  (turn-off-smartparens-mode)
-  (mixed-pitch-mode)
-  (setq-local olivetti-body-width 64)
-  (olivetti-mode)
-  (focus-mode))
+  (let ((mixed-pitch-set-height nil)
+        (markdown-hide-markup-in-view-modes nil)
+        (markdown-hide-markup nil))
+    (markdown-mode)
+    (turn-off-smartparens-mode)
+    (mixed-pitch-mode)
+    (setq-local olivetti-body-width 64)
+    (olivetti-mode)
+    (focus-mode)
+    ))
 
 ;;;; comments toggle
 (defun hide/show-comments-toggle-c ()
@@ -354,10 +393,23 @@ Saves to a temp file and puts the filename in the kill ring."
     (if (eq theme 'modus-vivendi)
         (progn
           (mapc #'disable-theme custom-enabled-themes)
-          (load-theme 'modus-operandi))
+          (load-theme 'modus-operandi 'noconfirm))
       (progn
         (mapc #'disable-theme custom-enabled-themes)
-        (load-theme 'modus-vivendi)))))
+        (load-theme 'modus-vivendi 'noconfirm)))))
+
+;;;; custom-theme-switch
+(defun custom-theme-switch-c ()
+  "Switch custom themes (bb and bb-light)"
+  (interactive)
+  (let ((theme (car-safe custom-enabled-themes)))
+    (if (eq theme 'bb)
+        (progn
+         (mapc #'disable-theme custom-enabled-themes)
+         (load-theme 'bb-light 'noconfirm))
+      (progn
+         (mapc #'disable-theme custom-enabled-themes)
+         (load-theme 'bb 'noconfirm)))))
 
 ;;;; deft
 (defun deft-current-root-c ()
@@ -385,7 +437,7 @@ Saves to a temp file and puts the filename in the kill ring."
 (defun fill-column-c (fillwidth)
   (interactive "sWidth: ")
   (let ((fill-column fillwidth))
-    (fill-paragraph t)))
+   (fill-paragraph t)))
 
 ;;;; convert to org timestamp
 (defun convert-to-org-timestamp-c (start end)
@@ -419,7 +471,7 @@ file needs to be in org SHOWALL mode"
             (if (string-match heading-text-current (nth 4 (org-heading-components)))
                 (progn
                   (kill-whole-line)
-                  (incf heading-changed-count))
+                  (cl-incf heading-changed-count))
               (progn
                 (message (concat
                           "Deleted "
@@ -429,7 +481,7 @@ file needs to be in org SHOWALL mode"
                           " with heading \""
                           heading-text-current
                           "\""))
-                (return-from org-headings-equalize)))))
+                (cl-return-from org-headings-equalize)))))
       (progn
         (message (concat
                   "Deleted "
@@ -448,5 +500,103 @@ file needs to be in org SHOWALL mode"
 (defun scroll-down-c ()
   (interactive)
   (evil-scroll-page-down 3))
+
+;;;; mixed-pitch without height
+(defun mixed-pitch-mode-height ()
+  (interactive)
+  (let ((mixed-pitch-set-height nil))
+    (mixed-pitch-mode)))
+
+;;;; custom-surround
+(defun custom-surround (&optional repeatlast)
+  "Surround region with string(s)"
+  (interactive)
+  (unless repeatlast
+    (setq isnewline (read-string "Newline? (yy/nn/yn/ny): "))
+    (setq beginphrase (read-string "Start: "))
+    (setq endphrase (read-string "End: ")))
+  (let ((start (region-beginning))
+        (end (region-end))
+        (nstart (string= (substring isnewline 0 1) "y"))
+        (nend (string= (substring isnewline 1 2) "y")))
+    (save-excursion
+      (goto-char start)
+      (insert (concat beginphrase (if nstart "\n")))
+      (if nend
+          (progn
+            (goto-char (+ end 4))
+            (insert (concat "\n" endphrase)))
+        (progn
+          (goto-char (+ end 1))
+          (insert (concat endphrase)))))))
+
+(defun custom-surround-previous ()
+  "Use previous custom-surround phrases"
+  (interactive)
+  (custom-surround t))
+
+;;;; git
+;;;;; auto-commit
+(defun git-auto-time-commit ()
+  "adds everything and commits with the date as the commit message."
+  (interactive)
+  (let* ((rootdir (expand-file-name (vc-root-dir)))
+         (committime (substring (shell-command-to-string "date +%Y-%m-%d-%H:%M:%S") 0 -1))
+         (gitadd (concat "git -C \"" rootdir "\" add --all"))
+         (gitcommit (concat "git -C \"" rootdir "\" commit -m \"" committime "\"")))
+    (progn
+     (message gitadd)
+     (message gitcommit)
+     (shell-command gitadd)
+     (shell-command gitcommit))))
+
+(defun git-prompt-commit ()
+  "adds everything and commits with the commit message provided by the user."
+  (interactive)
+  (let* ((rootdir (expand-file-name (vc-root-dir)))
+         (commitmsg (read-string "Commit Message: "))
+         (gitadd (concat "git -C \"" rootdir "\" add --all"))
+         (gitcommit (concat "git -C \"" rootdir "\" commit -m \"" commitmsg "\"")))
+    (progn
+     (message gitadd)
+     (message gitcommit)
+     (shell-command gitadd)
+     (shell-command gitcommit))))
+
+;;;; split org block
+(defun org-split-block-c ()
+  (interactive)
+  (let* ((initpos (line-number-at-pos (point)))
+         (bstartpos (line-number-at-pos
+                     (save-excursion (search-backward "#+begin")))) ;;TODO use re-search-backwards
+         (bdata (save-excursion
+                  (goto-line bstartpos)
+                  (substring (thing-at-point 'line t) 8 -1)))
+         (btype (car (split-string bdata)))
+         (barg (cdr (split-string bdata)))
+         (hdata (save-excursion ;;has newline at end
+                  (outline-previous-heading)
+                  (buffer-substring-no-properties
+                   (line-beginning-position)
+                   (progn (forward-line 3) (line-beginning-position))))))
+    (save-excursion
+      (progn
+        (end-of-line 0) (open-line 1) (forward-line) ;;new line above
+        (insert (concat "#+end_" btype))
+        (end-of-line) (open-line 2) (forward-line 2) ;;2 new lines below
+        (insert hdata)
+        (insert (concat "#+start_" btype barg))))
+    (goto-line (+ 1 initpos))))
+
+;;;; sexp
+(defun escape-sexp ()
+  (interactive)
+  (sp-forward-sexp)
+  (forward-char))
+
+(defun escape-sexp-backwards ()
+  (interactive)
+  (sp-backward-sexp)
+  (backward-char))
 
 ;;; end

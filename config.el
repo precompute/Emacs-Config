@@ -4,9 +4,12 @@
 
 ;;;; fonts
 ;;;;; doom-font
-(setq doom-font (font-spec :family "Liga Inconsolata LGC" :size 14)
+(setq doom-font (font-spec :family "Bitstream Vera Sans Mono" :size 16)
 ;;;;; doom-variable-pitch-font
-      doom-variable-pitch-font (font-spec :family "Sabon LT Std" :weight 'normal :size 17)
+      ;; doom-variable-pitch-font (font-spec :family "Century Expanded LT Std" :weight 'normal :size 19)
+      ;; doom-variable-pitch-font (font-spec :family "Inter" :weight 'semi-bold :size 17)
+      ;; doom-variable-pitch-font (font-spec :family "Inter" :size 17)
+      doom-variable-pitch-font (font-spec :family "Helvetica LT Com" :weight 'normal :size 18)
       doom-unicode-font (font-spec :family "Sabon LT Pro" :weight 'normal :size 17)
       doom-serif-font (font-spec :family "Sabon LT Pro" :weight 'normal :size 17))
 
@@ -48,79 +51,87 @@
 (map! "C-x T" 'timestamp-no-time)
 
 ;;;;; s-evil
-(map! "s-h"     'evil-backward-char
-      "s-l"     'evil-forward-char
-      "s-j"     'next-line
-      "s-k"     'previous-line
-      "s-v"     'evil-visual-char
-      "s-V"     'evil-visual-line
-      "s-d"     'evil-delete
-      "s-u"     'undo-tree-undo
-      "s-U"     'undo-tree-redo
-      "s-r"     'evil-replace
-      "s-R"     'evil-replace-state
-      "s-o"     'evil-open-below
-      "s-O"     'evil-open-above
-      "s-p"     'evil-paste-after
-      "s-P"     'evil-paste-before
-      "s-x"     'evil-delete-char
-      "s-X"     'evil-delete-backward-char
-      "s-y"     'evil-yank
-      "s-W"     'evil-forward-WORD-begin
-      "s-w"     'evil-forward-word-begin
-      "s-e"     'evil-forward-word-end
-      "s-E"     'evil-forward-WORD-end
-      "s-b"     'evil-backward-word-begin
-      "s-B"     'evil-backward-WORD-begin
-      "s-/"     'evil-ex-search-forward
-      "s-?"     'evil-ex-search-backward
-      "s-n"     'evil-ex-search-next
-      "s-N"     'evil-ex-search-previous
-      "s-a"     'evil-append
-      "s-A"     'evil-append-line
-      "s-i"     'evil-insert
-      "s-I"     'evil-insert-line
-      "s-$"     'evil-end-of-visual-line
-      "s-%"     'evil-jump-item
-      "s-^"     'evil-first-non-blank
-      "s--"     'evil-previous-line-first-non-blank
-      "s-."     'evil-repeat
-      "s-c"     'evil-change
-      "s-z s-a" 'evil-toggle-fold
-      "s-z s-r" 'evil-open-folds
-      "s-z s-m" 'evil-close-folds
-      "s-g s-c" 'evil-commentary
-      "s-g s-p" '+evil/reselect-paste
-      "s-g s-v" 'evil-visual-restore
-      "s-*"     'evil-ex-search-word-forward
-      "s-#"     'evil-ex-search-word-backward
-      "s-g s-d" '+lookup/definition
-      "s-z s-s" 'save-buffer
-      "s-z s-x" 'kill-current-buffer
-      "s-("     'evil-backward-sentence-begin
-      "s-)"     'evil-forward-sentence-begin
-      "s-="     'evil-indent
-      :n evil-normal-state-map "go" 'dumb-jump-go
-      :n evil-normal-state-map "gO" 'dumb-jump-back
-      :n evil-normal-state-map "g=" 'dumb-jump-go-prompt
-      "s-f"     'evil-snipe-f
-      "s-s"     'evil-snipe-s
-      "s-t"     'evil-snipe-t
-      "s-F"     'evil-snipe-F
-      "s-S"     'evil-snipe-S
-      "s-T"     'evil-snipe-T
-      "s-\\"    'repeat
-      "s-`"     'evil-e-prompt-c
-      "M-s-p"   'evil-paste-pop
-      "M-s-n"   'evil-paste-pop-next
-      "C-s c" 'complete-symbol
-      :map override "s-SPC" #'doom/leader
-      :n "U" #'undo-tree-redo)
+(global-set-key (kbd "s-h")     'evil-backward-char)
+(global-set-key (kbd "s-l")     'evil-forward-char)
+(global-set-key (kbd "s-j")     'next-line) ;works!
+(global-set-key (kbd "s-k")     'previous-line)
+(global-set-key (kbd "s-v")     'evil-visual-char)
+(global-set-key (kbd "s-V")     'evil-visual-line)
+(global-set-key (kbd "s-d")     'evil-delete) ;dd
+(global-set-key (kbd "s-u")     'undo-tree-undo)
+(global-set-key (kbd "s-U")     'undo-tree-redo)
+(global-set-key (kbd "s-r")     'evil-replace)
+(global-set-key (kbd "s-R")     'evil-replace-state)
+(global-set-key (kbd "s-o")     'evil-open-below)
+(global-set-key (kbd "s-O")     'evil-open-above)
+(global-set-key (kbd "s-p")     'evil-paste-after)
+(global-set-key (kbd "s-P")     'evil-paste-before)
+(global-set-key (kbd "s-x")     'evil-delete-char)
+(global-set-key (kbd "s-X")     'evil-delete-backward-char)
+(global-set-key (kbd "s-y")     'evil-yank) ;yy
+(global-set-key (kbd "s-W")     'evil-forward-WORD-begin)
+(global-set-key (kbd "s-w")     'evil-forward-word-begin)
+(global-set-key (kbd "s-e")     'evil-forward-word-end)
+(global-set-key (kbd "s-E")     'evil-forward-WORD-end)
+(global-set-key (kbd "s-b")     'evil-backward-word-begin)
+(global-set-key (kbd "s-B")     'evil-backward-WORD-begin)
+(global-set-key (kbd "s-/")     'evil-ex-search-forward)
+(global-set-key (kbd "s-?")     'evil-ex-search-backward)
+(global-set-key (kbd "s-n")     'evil-ex-search-next)
+(global-set-key (kbd "s-N")     'evil-ex-search-previous)
+(global-set-key (kbd "s-a")     'evil-append)
+(global-set-key (kbd "s-A")     'evil-append-line)
+(global-set-key (kbd "s-i")     'evil-insert)
+(global-set-key (kbd "s-I")     'evil-insert-line)
+(global-set-key (kbd "s-G")     'evil-goto-line)
+(global-set-key (kbd "s-$")     'evil-end-of-visual-line)
+(global-set-key (kbd "s-%")     'evil-jump-item)
+(global-set-key (kbd "s-^")     'evil-first-non-blank)
+(global-set-key (kbd "s--")     'evil-previous-line-first-non-blank)
+(global-set-key (kbd "s-.")     'evil-repeat)
+(global-set-key (kbd "s-c")     'evil-change)
+(global-set-key (kbd "s-J")     'evil-join)
+(global-set-key (kbd "s-z s-a") 'evil-toggle-fold)
+(global-set-key (kbd "s-z s-r") 'evil-open-folds)
+(global-set-key (kbd "s-z s-m") 'evil-close-folds)
+(global-set-key (kbd "s-z s-z") 'evil-scroll-line-to-center)
+(global-set-key (kbd "s-g s-c") 'evil-commentary)
+(global-set-key (kbd "s-g s-p") '+evil/reselect-paste)
+(global-set-key (kbd "s-g s-v") 'evil-visual-restore)
+(global-set-key (kbd "s-*")     'evil-ex-search-word-forward)
+(global-set-key (kbd "s-#")     'evil-ex-search-word-backward)
+(global-set-key (kbd "s-g s-d") '+lookup/definition)
+(global-set-key (kbd "s-z s-s") 'save-buffer)
+(global-set-key (kbd "s-z s-x") 'kill-current-buffer)
+(global-set-key (kbd "s-(")     'evil-backward-sentence-begin)
+(global-set-key (kbd "s-)")     'evil-forward-sentence-begin)
+(global-set-key (kbd "s-=")     'evil-indent)
+(define-key evil-normal-state-map "go" 'dumb-jump-go)
+(define-key evil-normal-state-map "gO" 'dumb-jump-back)
+(define-key evil-normal-state-map "g=" 'dumb-jump-go-prompt)
+(global-set-key (kbd "s-f")     'evil-snipe-f)
+(global-set-key (kbd "s-s")     'evil-snipe-s)
+(global-set-key (kbd "s-t")     'evil-snipe-t)
+(global-set-key (kbd "s-F")     'evil-snipe-F)
+(global-set-key (kbd "s-S")     'evil-snipe-S)
+(global-set-key (kbd "s-T")     'evil-snipe-T)
+(global-set-key (kbd "s-\\")    'repeat)
+(global-set-key (kbd "s-`")     'evil-e-prompt-c)
+(global-set-key (kbd "M-s-p")   'evil-paste-pop)
+(global-set-key (kbd "M-s-n")   'evil-paste-pop-next)
+
 (windmove-default-keybindings)
+
+(global-set-key (kbd "C-s c") 'complete-symbol)
+
+(map! :map override "s-SPC" #'doom/leader)
+
+(map! :n "U" #'undo-tree-redo)
 
 ;;;;; prefix-leader maps
 ;;;;;; project
 (map! :leader
+      ;; (:prefix-map ("p" . "project") ;;apparently prefix-map shouldn't be used
       (:prefix "p"
         :desc "Find header"    "O"  #'ff-find-other-file))
 
@@ -147,7 +158,7 @@
         (:prefix ("W" . "Writing Mode")
          :desc "Enable Writing Mode (c)"      "W" #'enable-writing-mode-c
          :desc "Enable Writing Mode with focus(c)" "w" #'enable-writing-mode-with-focus-c)
-        :desc "Switch modus themes"                "t" #'modus-theme-switch-c
+        :desc "Switch modus themes"                "t" #'custom-theme-switch-c
         (:prefix ("s" . "shell (vterm)")
          :desc "Open shell in vsplit window"  "s" #'open-shell-vsplit-c
          :desc "Open shell in split window"   "S" #'open-shell-split-c)
@@ -176,14 +187,17 @@
 (map! :leader
       (:prefix "f"
         :desc "fzf dir (counsel)" "g" #'counsel-fzf
-        :desc "fzf other dir (counsel)" "G" #'counsel-fzf-other-dir-c))
+        :desc "fzf other dir (counsel)"     "G" #'counsel-fzf-other-dir-c
+        :desc "counsel projectile find dir" "a" #'counsel-projectile-find-dir
+        ))
 
 ;;;;;; "o"
 (map! :leader
       (:prefix "o"
         :desc "Toggle dired sidebar"                           "p" #'dired-sidebar-toggle-sidebar
         :desc "Toggle dired sidebar for current directory"     "P" #'dired-sidebar-toggle-with-current-directory
-        :desc "Toggle imenu-list"                              "i" #'imenu-list-smart-toggle))
+        :desc "Toggle imenu-list"                              "i" #'imenu-list-smart-toggle
+        :desc "dired"                                          "o" #'dired-jump))
 
 ;;;;;; "s"
 (map! :leader
@@ -197,13 +211,12 @@
 ;;;;;; text-manage
 (map! :leader
       (:prefix ("&" . "text-manage")
-       :desc "refile headline to folder under project" "d" #'org-yank-headline-to-dir-c
-       :desc "copy link to current heading to directory" "l" #'org-yank-link-to-dir-c
-       :desc "copy link and context to current heading to directory" "L" #'org-yank-link-context-to-dir-c
-       :desc "empty list of files modified by customrefile" "k" #'customrefile-clean-modified-list
-       :desc "print plain modified list" "P" #'customrefile-print-modified-list
-       :desc "print checkboxed modified list" "p" #'customrefile-print-checkboxes-modified-list
-       ))
+       :desc "" "d" #'refile2-copy-headline
+       :desc "" "l" #'refile2-link-headline
+       :desc "" "L" #'refile2-link-headline-with-context
+       :desc "" "k" #'refile2-clean-modified-list
+       :desc "" "P" #'refile2-print-checkboxes-modified-list
+       :desc "" "p" #'refile2-print-modified-list))
 
 (map!
  (:after pdf-view
@@ -211,74 +224,115 @@
    "q" nil
    "Q" nil)))
 
+;;;;;; rotate
+(map! (:when (featurep! :editor rotate-text)
+       :n "!"  #'rotate-text ;; e408c045485365d7ff8b34dbc3912557b546d2ae
+       :n "]r"  #'nil
+       :n "[r"  #'nil))
+
 ;;;;; C-* / M-* maps
+;;;;;; M-*
+
 ;;;;;; C-*
-(map! "C-x C-d" 'ido-dired
-      "C-s d"   'org-id-create-copy
-      "C-s C-d" 'org-id-paste
-      "C-s e"   'org-id-copy
-      "C-S-o"   'evil-jump-forward
-      "C-s f"   'org-insert-quote-c
-      "C-s h"   'org-insert-use-history-c
-      "C-s r"   'org-insert-source-c
-      "C-s v v" 'org-insert-source-interactive-c
-      "C-s v m" 'org-insert-markdown-source-c
-      "C-s v s" 'org-insert-shell-source-c
-      "C-s C-x" 'throwtext-c
-      "C-s x"   'throwtext-save-c
-      "C-s C-y" 'placetext-c
-      "C-s y"   'placetext-save-c
-      "C-s i"   '+lookup/dictionary-definition-lexic
-      "C-D" 'scroll-down-c
+(global-set-key (kbd "C-x C-d") 'ido-dired)
+(global-set-key (kbd "C-s d")   'org-id-create-copy)
+(global-set-key (kbd "C-s C-d") 'org-id-paste)
+(global-set-key (kbd "C-s e")   'org-id-copy)
+(global-set-key (kbd "C-S-o")     'evil-jump-forward)
+(global-set-key (kbd "C-s f")   'org-insert-quote-c)
+(global-set-key (kbd "C-s h")   'org-insert-use-history-c)
+(global-set-key (kbd "C-s r")   'org-insert-source-c)
+(global-set-key (kbd "C-s v v") 'org-insert-source-interactive-c)
+(global-set-key (kbd "C-s v m") 'org-insert-markdown-source-c)
+(global-set-key (kbd "C-s v s") 'org-insert-shell-source-c)
+(global-set-key (kbd "C-s C-x") 'throwtext-c)
+(global-set-key (kbd "C-s x")   'throwtext-save-c)
+(global-set-key (kbd "C-s C-y") 'placetext-c)
+(global-set-key (kbd "C-s y")   'placetext-save-c)
+(global-set-key (kbd "C-s i")   '+lookup/dictionary-definition-lexic)
+(global-set-key (kbd "C-s \(")   'custom-surround)
+(global-set-key (kbd "C-s \)")   'custom-surround-previous)
+(map! "C-D" 'scroll-down-c
       "C-U" 'scroll-up-c)
+(global-set-key (kbd "C-s-[")     'org-contract-current-heading-move-backward-c)
+(global-set-key (kbd "C-s-]")     'org-contract-current-heading-move-forward-c)
+
+;;;;;; H-*
+(map!
+ "H-t" #'refile2-copy-headline
+ "H-l" #'refile2-link-headline
+ "H-L" #'refile2-link-headline-with-context
+ "H-r" #'refile2-relative-copy-headline
+ "H-k" #'refile2-relative-link-headline
+ "H-K" #'refile2-relative-link-headline-with-context
+ "H-z" #'refile2-clean-modified-list
+ "H-P" #'refile2-print-checkboxes-modified-list
+ "H-p" #'refile2-print-modified-list
+ "H-c" #'git-auto-time-commit
+ "H-C" #'git-prompt-commit
+ "H-i" #'org-split-block-c
+ "H-j" #'org-headings-equalize)
+
+(map!
+ "H--" #'org-hide-block-all
+ "H-=" #'org-show-block-all)
 
 ;;;;;; s-*
-(map! "s-["     'outline-previous-heading
-      "s-]"     'outline-next-heading)
+(global-set-key (kbd "s-[")     'outline-previous-heading)
+(global-set-key (kbd "s-]")     'outline-next-heading)
+(map! "s-z s-x" #'kill-current-buffer)
+(map! "s-z s-s" #'save-buffer)
+(map! "s-z s-p" #'delete-window)
+(map! "s-z s-o" #'delete-other-windows)
 
 ;;;;;; M-s-*
-(map! "M-s-j" 'org-merge-next-heading-c
-      "M-s-k" 'org-merge-previous-heading-c
-      "M-s-e" 'org-headings-equalize
-      "M-s-]" 'org-down-element
-      "M-s-[" 'org-up-element)
+(map! "M-s-e" 'org-headings-equalize)
+(global-set-key (kbd "M-s-]") 'org-down-element)
+(global-set-key (kbd "M-s-[") 'org-up-element)
+(map! :n "M-s-h" 'spatial-navigate-backward-horizontal-box
+      :n "M-s-j" 'spatial-navigate-forward-vertical-box
+      :n "M-s-k" 'spatial-navigate-backward-vertical-box
+      :n "M-s-l" 'spatial-navigate-forward-horizontal-box
+      :i "M-s-h" 'spatial-navigate-backward-horizontal-bar
+      :i "M-s-j" 'spatial-navigate-forward-vertical-bar
+      :i "M-s-k" 'spatial-navigate-backward-vertical-bar
+      :i "M-s-l" 'spatial-navigate-forward-horizontal-bar)
 
 ;;;;;; C-H-M-*
-(map! "C-H-M-h" 'evil-window-decrease-width
-      "C-H-M-j" 'evil-window-decrease-height
-      "C-H-M-k" 'evil-window-increase-height
-      "C-H-M-l" 'evil-window-increase-width)
+(global-set-key (kbd "C-H-M-h") 'evil-window-decrease-width)
+(global-set-key (kbd "C-H-M-j") 'evil-window-decrease-height)
+(global-set-key (kbd "C-H-M-k") 'evil-window-increase-height)
+(global-set-key (kbd "C-H-M-l") 'evil-window-increase-width)
 
 ;;;;;; C-M-s-*
-(map! "C-M-s-h" 'evil-window-left
-      "C-M-s-j" 'evil-window-down
-      "C-M-s-k" 'evil-window-up
-      "C-M-s-l" 'evil-window-right
-      "C-M-s-." 'evil-window-bottom-right
-      "C-M-s-n" 'evil-window-bottom-left
-      "C-M-s-y" 'evil-window-top-left
-      "C-M-s-o" 'evil-window-top-right
-      "C-M-s-u" 'evil-window-rotate-upwards
-      "C-M-s-m" 'evil-window-rotate-downwards
-      "C-M-s-g" 'evil-window-far-left
-      "C-M-s-;" 'evil-window-far-right
-      "C-M-s-i" 'evil-window-very-top
-      "C-M-s-," 'evil-window-very-bottom
-      :n "zs"   'save-buffer
-      :n "zp"   'delete-window
-      :n "zo"   'delete-other-windows)
+(global-set-key (kbd "C-M-s-h") 'evil-window-left)
+(global-set-key (kbd "C-M-s-j") 'evil-window-down)
+(global-set-key (kbd "C-M-s-k") 'evil-window-up)
+(global-set-key (kbd "C-M-s-l") 'evil-window-right)
+(global-set-key (kbd "C-M-s-.") 'evil-window-bottom-right)
+(global-set-key (kbd "C-M-s-n") 'evil-window-bottom-left)
+(global-set-key (kbd "C-M-s-y") 'evil-window-top-left)
+(global-set-key (kbd "C-M-s-o") 'evil-window-top-right)
+(global-set-key (kbd "C-M-s-u") 'evil-window-rotate-upwards)
+(global-set-key (kbd "C-M-s-m") 'evil-window-rotate-downwards)
+(global-set-key (kbd "C-M-s-g") 'evil-window-far-left)
+(global-set-key (kbd "C-M-s-;") 'evil-window-far-right)
+(global-set-key (kbd "C-M-s-i") 'evil-window-very-top)
+(global-set-key (kbd "C-M-s-,") 'evil-window-very-bottom)
+
+(map! :n "zs"     'save-buffer
+      :n "zp"     'delete-window
+      :n "zo"     'delete-other-windows)
 
 ;;;;;; C-M-*
-(map! "C-M-g"  'treefactor-throw
-      "C-M-y"  'treefactor-org-refactor-heading
-      "C-M-_"  'darkroom-decrease-margins
-      "C-M-f"  'sp-forward-sexp
-      "C-M-b"  'sp-backward-sexp
-      "C-M-\\" 'syntactic-close)
+(global-set-key (kbd "C-M-_") 'darkroom-decrease-margins)
+(global-set-key (kbd "C-M-f") 'sp-forward-sexp)
+(global-set-key (kbd "C-M-b") 'sp-backward-sexp)
+(global-set-key (kbd "C-M-\\") 'syntactic-close)
 
 ;;;;; key chords
-(key-chord-mode 1) ;;WOW.
-(setq key-chord-two-keys-delay 0.004
+(key-chord-mode 1)
+(setq key-chord-two-keys-delay 0.003
       key-chord-in-macros nil)
 (key-chord-define-global "zx"     'kill-current-buffer)
 (key-chord-define-global "zs"     'save-buffer)
@@ -288,47 +342,16 @@
 (key-chord-define-global "wj"     'evil-window-down)
 (key-chord-define-global "wk"     'evil-window-up)
 (key-chord-define-global "wl"     'evil-window-right)
-(key-chord-define-global "jk"     'evil-escape) ;;whoa
+(key-chord-define-global "jk"     'evil-escape)
 (key-chord-define-global "w("     'evil-window-vsplit-left-c)
 (key-chord-define-global "w-"     'evil-window-split-below-c)
 (key-chord-define-global "w="     'evil-window-split-above-c)
 (key-chord-define-global "w)"     'evil-window-vsplit-right-c)
-(key-chord-define-global "ti"     'timestamp)
-(key-chord-define-global "do"     'dired-jump)
-(key-chord-define-global "dw"     (kbd "s-d w"))
-(key-chord-define-global "db"     (kbd "s-d b"))
-(key-chord-define-global "vh"     (kbd "s-v h"))
-(key-chord-define-global "vj"     (kbd "s-v j"))
-(key-chord-define-global "vk"     (kbd "s-v k"))
-(key-chord-define-global "vl"     (kbd "s-v l"))
-(key-chord-define-global "vi"     (kbd "s-V"))
-(key-chord-define-global "sj"     'evil-scroll-down)
-(key-chord-define-global "sk"     'evil-scroll-up)
-(key-chord-define-global "(o"     'evil-jump-backward)
-(key-chord-define-global "o)"     'evil-jump-forward)
-(key-chord-define-global "ej"     (kbd "s-p"))
-(key-chord-define-global "ek"     (kbd "s-P"))
-(key-chord-define-global "fh"     (kbd "s-b"))
-(key-chord-define-global "fj"     (kbd "s-)"))
-(key-chord-define-global "fk"     (kbd "s-("))
-(key-chord-define-global "fl"     (kbd "s-w"))
-(key-chord-define-global "gh"     (kbd "s-B"))
-(key-chord-define-global "gj"     'evil-forward-paragraph)
-(key-chord-define-global "gk"     'evil-backward-paragraph)
-(key-chord-define-global "gl"     (kbd "s-W"))
-(key-chord-define-global "ch"     (kbd "s-c b"))
-(key-chord-define-global "cl"     (kbd "s-c w"))
 (key-chord-define-global "ef"     'swiper-isearch)
-(key-chord-define-global "oj"     '+evil/insert-newline-below)
-(key-chord-define-global "ok"     '+evil/insert-newline-above)
-(key-chord-define-global "tj"     'undo-tree-undo)
-(key-chord-define-global "tk"     'undo-tree-redo)
-(key-chord-define-global "nj"     'evil-ex-search-next)
-(key-chord-define-global "nk"     'evil-ex-search-previous)
 
 ;;;;; transient
 (after! transient
- (transient-define-prefix org-transient () ;;wow
+ (transient-define-prefix org-transient ()
    :transient-suffix     'transient--do-stay
    :transient-non-suffix 'transient--do-warn
    [("h" "previous level" org-up-element)
@@ -344,57 +367,73 @@
 ;;;;; org
 (setq org-directory "~/46/org/"
       org-attach-id-dir "~/46/org/.attach/"
-      org-startup-with-inline-images t
-      org-id-locations-file "/home/sys1/46/.orgids"
-      org-superstar-prettify-item-bullets nil)
+      org-startup-with-inline-images t)
+(setq org-tsr-regexp-both
+      "[[<]\\([[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)[]>]\\(--?-?[[<]\\([[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)[]>]\\)?")
+(setq org-id-locations-file "/home/sys1/46/.orgids")
+(setq org-superstar-prettify-item-bullets nil)
 (after! org
-  (remove-hook! 'org-mode-hook '(org-superstar-mode writegood-mode flycheck-mode))
-  (custom-set-faces! '(org-quote :slant normal))
+  (setq org-time-stamp-custom-formats '("<%y-%m-%d %H:%M:%S>" . "<%y-%m-%d %H:%M:%S>"))
+  (setq org-time-stamp-formats '("<%y-%m-%d %H:%M:%S>" . "<%y-%m-%d %a %H:%M>"))
+  (remove-hook 'org-mode-hook #'org-superstar-mode)
+  (remove-hook 'org-mode-hook #'writegood-mode)
+  (remove-hook 'org-mode-hook #'flycheck-mode)
+  (setq org-superstar-mode nil)
+  (setq org-tsr-regexp-both
+        "[[<]\\([[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)[]>]\\(--?-?[[<]\\([[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)[]>]\\)?")
+  (custom-set-faces!
+    '(org-quote :slant normal))
+  (setq org-cycle-separator-lines 0)
+  (setq org-todo-log-states t)
+  (setq org-treat-insert-todo-heading-as-state-change t)
+  (setq org-fontify-todo-headline t)
   (with-no-warnings
     (custom-declare-face '+org-todo-done '((t (:inherit (bold success org-todo)))) "")
     (custom-declare-face '+org-todo-cancel '((t (:inherit (bold font-lock-builtin-face org-todo)))) ""))
-  (setq org-time-stamp-custom-formats '("<%y-%m-%d %H:%M:%S>" . "<%y-%m-%d %H:%M:%S>")
-        org-time-stamp-formats '("<%y-%m-%d %H:%M:%S>" . "<%y-%m-%d %a %H:%M>")
-        org-superstar-mode nil
-        org-tsr-regexp-both "[[<]\\([[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)[]>]\\(--?-?[[<]\\([[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}-[[:digit:]]\\{2\\}\\(?: .*?\\)?\\)[]>]\\)?"
-        org-cycle-separator-lines 0
-        org-todo-log-states t
-        org-treat-insert-todo-heading-as-state-change t
-        org-todo-keywords
-        '((sequence "TODO(t)" "CNCL(k)" "INPR(s)" "HOLD(h)" "PROJ(p)" "WAIT(w)"
-                    "|" "DONE(d)")
-          (sequence "[ ](T)" "[-](S)" "[?](W)"
-                    "|" "[X](D)"))
-        org-todo-keyword-faces
-        '(("[-]"  . +org-todo-active)
-          ("DONE" . +org-todo-done)
-          ("INPR" . +org-todo-active)
-          ("[?]"  . +org-todo-onhold)
-          ("WAIT" . +org-todo-onhold)
-          ("HOLD" . +org-todo-onhold)
-          ("CNCL" . +org-todo-cancel)
-          ("PROJ" . +org-todo-project))))
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)" 
+           "CNCL(k)"
+           "INPR(s)"
+           "HOLD(h)"
+           "PROJ(p)"
+           "WAIT(w)"
+           "|"
+           "DONE(d)"
+           )
+          (sequence
+           "[ ](T)"
+           "[-](S)"
+           "[?](W)"
+           "|"
+           "[X](D)"))))
+
+(setq-hook! '(org-mode-hook)
+  olivetti-body-width 105)
 
 ;;;;; load! files
 (load! "custom/scrollotherwindow.el")
+(load! "custom/refile2.el")
+(load! "custom/kindleclippings.el")
 
 ;;;;; visual-line-mode
 (global-visual-line-mode 1)
 
 ;;;;; modeline
-(setq doom-modeline-height 2
-      +modeline-height 27
-      +modeline-bar-width nil
-      doom-modeline-enable-word-count t
-      doom-modeline-icon nil)
+(setq doom-modeline-height 2)
+(setq! +modeline-height 27)
+(setq +modeline-bar-width nil)
+(setq doom-modeline-enable-word-count t)
+(setq doom-modeline-icon nil)
 
 ;;;;; electric pair
 (setq electric-quote-replace-double t)
 
 ;;;;; org
-(setq org-agenda-files (list "/home/sys1/46/org/list/list.org")
-      org-hide-emphasis-markers t
-      org-popup-calendar-for-date-prompt nil)
+(setq org-agenda-files
+      (directory-files-recursively "~/46/textmindtest/one" (rx "Agenda.org" eos)))
+(setq org-hide-emphasis-markers t)
+(setq org-popup-calendar-for-date-prompt nil)
 
 ;;;;; time
 (setq display-time-interval 20
@@ -414,7 +453,7 @@
 
 ;;;;; misc
 (auto-image-file-mode)
-(setq frame-title-format '("Emacs – %f")
+(setq frame-title-format (concat "Emacs – %f")
       icon-title-format frame-title-format)
 
 ;;;;; dired
@@ -422,7 +461,9 @@
   (setq dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"
         wdired-allow-to-change-permissions t)
   (dired-async-mode)
-  (dired-async--modeline-mode))
+  (dired-async--modeline-mode)
+  (map! :map dired-mode-map
+        :ni "K" #'dired-kill-line))
 (after! dired-aux
   (setq dired-create-destination-dirs 'ask
         dired-vc-rename-file t))
@@ -440,6 +481,9 @@
 (after! dired-sidebar
   (setq dired-sidebar-display-alist '((side . left) (slot . 0))))
 
+(setq-hook! '(dired-sidebar-mode-hook)
+  truncate-lines t)
+
 ;;;;; dired-narrow
 (map! :map dired-mode-map
       :ni "g/" #'dired-narrow)
@@ -453,11 +497,20 @@
       :n "g\\" #'hydra-dired-quick-sort/body)
 (add-hook! 'dired-mode-hook 'dired-quick-sort)
 
+;;;;; dired-posframe
+(map! :map dired-mode-map
+      :n "gp" #'dired-posframe-mode)
+(after! dired-posframe
+  (setq dired-posframe-height 30
+        dired-posframe-width 100))
+
 ;;;;; misc
 (setq doom-debug-mode nil)
-(setq scroll-margin 5
+
+(setq scroll-margin 10
       window-combination-resize nil
-      eldoc-idle-delay 0.2)
+      eldoc-idle-delay 0.2
+      )
 
 ;;;;; org-sidebar
 (after! org-sidebar
@@ -510,12 +563,13 @@
 (setq auth-sources '("~/.doom.d/magitauthinfo"))
 
 ;;;;; calibredb
-(setq calibredb-root-dir "~/temp/del/calibreback/99"
+(setq calibredb-root-dir "~/99"
       calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)
       calibredb-program "/opt/calibre/calibredb"
       sql-sqlite-program "/usr/bin/sqlite3"
-      calibredb-library-alist '(("~/temp/del/calibreback/99")
-                                ("~/99")))
+      calibredb-comment-width -1
+      calibredb-title-width -1
+      calibredb-library-alist '(("~/99")))
 
 ;;;;; ispell
 (setq ispell-dictionary "en_custom"
@@ -542,12 +596,12 @@
 (setq x-stretch-cursor t)
 (setq +workspaces-on-switch-project-behavior nil)
 (setq uniquify-buffer-name-style 'forward)
-(setq which-key-idle-delay 0.5
+(setq which-key-idle-delay 1.5)
 (setq nav-flash-delay 0.3)
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 (setq fancy-splash-image "~/.doom.d/splash.jpg")
-(setq display-line-numbers-type nil
-      display-line-numbers-width 5)
+(setq display-line-numbers-type nil)
+(setq display-line-numbers-width 5)
 (add-to-list 'auto-mode-alist '("\\.rkt$" . racket-mode))
 
 ;;;;; pdf-view
@@ -563,7 +617,8 @@
         deft-separator "->"))
 
 ;;;;; recentf
-(after! recentf (setq-default recentf-max-saved-items 999999))
+(after! recentf
+  (setq-default recentf-max-saved-items 999999))
 
 ;;;;; counsel-rg
 (setq counsel-rg-base-command
@@ -579,13 +634,18 @@
         "%s"))
 
 ;;;;; evil
-(setq evil-goggles-duration 0.5
+(setq evil-goggles-duration 0.5)
 (setq evil-move-cursor-back nil)
 (remove-hook 'evil-insert-state-entry-hook #'delete-selection-mode)
+(setq evil-auto-balance-windows nil)
+
+;;;;; ligatures
+(setq +ligatures-extra-symbols nil)
 
 ;;;;; markdown
 (setq markdown-header-scaling t
-      markdown-hide-markup t)
+      markdown-hide-markup-in-view-modes nil
+      markdown-hide-markup nil)
 (map!
  (:after markdown-mode
   (:map markdown-mode-map
@@ -596,27 +656,37 @@
 ;;;;; company
 (setq company-idle-delay nil)
 (setq company-box-doc-delay nil)
-(setq tooltip-idle-delay 0)
+(setq tooltip-idle-delay 0
+      company-tooltip-limit 6)
 
 ;;;;; swiper
 (setq swiper-use-visual-line nil)
 (setq swiper-use-visual-line-p (lambda (a) nil))
 
 ;;;;; paren
-(setq show-paren-style 'expression
+(setq show-paren-style 'parenthesis
       show-paren-delay 0)
 
 ;;;;; misc
-(setq indicate-buffer-boundaries t
+(setq indicate-buffer-boundaries '((top . left) (t . right))
       indicate-empty-lines t)
+(setq auto-save-default nil
+      auto-save-include-big-deletions nil)
+(setq doom-big-font-increment 2)
 
 ;;;;; prescient
 (after! prescient
   (setq prescient-filter-method
-        '(regexp
-          fuzzy))
+        '(initialism
+          literal
+          regexp
+          prefix
+          anchored
+          literal-prefix))
   (setq prescient-frequency-threshold 0.5
-        prescient-frequency-decay 0.5))
+        prescient-frequency-decay 0.5
+        history-length 999999
+        prescient-history-length 999999))
 
 ;;;;; neotree
 (after! neotree
@@ -637,13 +707,17 @@
         imenu-list-focus-after-activation t)
   (set-popup-rule! "^\\*Ilist\\*$"
     :actions '(+popup-display-buffer-stacked-side-window-fn)
-    :side 'right
-    :width 50
+    :side 'left
+    :width 40
     :modeline nil
     :select t
-    :quit t))
+    :quit t)
+  (setq-hook! '(imenu-list-major-mode-hook
+                imenu-list-minor-mode-hook)
+    truncate-lines t))
 
 ;;;;; flimenu
+(flimenu-global-mode)
 
 ;;;;; keycast
 (after! keycast
@@ -656,8 +730,8 @@
 (after! outline
   (add-hook 'outline-minor-mode-hook 'outline-minor-faces-add-font-lock-keywords)
   (map! :map outline-minor-mode-map
-        :ni [tab] #'bicycle-cycle
-        :ni [backtab] #'bicycle-cycle-global))
+        :n [tab] #'bicycle-cycle
+        :n [backtab] #'bicycle-cycle-global))
 
 ;;;;;; backline
 (after! outline
@@ -666,34 +740,47 @@
 ;;;;; misc
 (advice-add #'ffap-guesser :override #'ignore)
 (add-hook 'hoon-mode #'lsp)
+(map! :map prog-mode-map
+      :i [tab] #'escape-sexp
+      :i [backtab] #'escape-sexp-backwards)
 
 ;;;;; olivetti
 (setq olivetti-body-width 135)
 (setq olivetti-enable-visual-line-mode nil)
 (setq olivetti-recall-visual-line-mode-entry-state t)
-(add-hook! '(prog-mode-hook text-mode-hook dired-mode-hook conf-mode-hook)
+(add-hook! '(prog-mode-hook
+             text-mode-hook
+             dired-mode-hook
+             conf-mode-hook)
            #'olivetti-mode)
 
 ;;;;; lexic
 (after! lexic
   (set-popup-rule! "^\\*lexic\\*$"
     :actions '(+popup-display-buffer-stacked-side-window-fn)
-    :side 'left :width 50 :slot -1 :modeline nil :select t :quit t))
+    :side 'left
+    :width 50
+    :slot -1
+    :modeline nil
+    :select t
+    :quit t))
 
 ;;;;; misc hooks
 (add-hook! 'lexic-mode-hook #'mixed-pitch-mode)
+(add-hook! 'markdown-mode-hook #'mixed-pitch-mode)
 (remove-hook! 'dired-mode-hook #'dired-omit-mode)
-(use-package mixed-pitch :hook (org-mode . mixed-pitch-mode))
+(use-package mixed-pitch
+  :hook (org-mode . mixed-pitch-mode))
+(setq mixed-pitch-set-height t)
 (solaire-global-mode -1)
-
-;;;;; unicode fonts
+(remove-hook! '(org-mode-hook)
+  #'yas-minor-mode-on)
+(setq-hook! '(elfeed-search-update-hook)
+  truncate-lines t
+  display-line-numbers t)
 
 ;;;;; hl-line
-(remove-hook! '(prog-mode-hook
-                text-mode-hook
-                conf-mode-hook
-                special-mode-hook) #'hl-line-mode)
-(add-hook! '(dired-mode-hook) #'hl-line-mode)
+(setq global-hl-line-modes '(dired-mode))
 
 ;;;; visual customizations
 ;;;;; outline-*
@@ -703,18 +790,13 @@
   '(outline-3 :height 1.2)
   '(outline-4 :height 1.1)
   '(outline-5 :height 1.07)
-  '(outline-6 :height 1.03))
+  '(outline-6 :height 1.03)
+  )
 
-(custom-set-faces! '(org-quote :slant normal))
+(custom-set-faces!
+  '(org-quote :slant normal))
 
 ;;;;; org-level-*
-(custom-set-faces!
-  '(org-level-1 :height 1.5)
-  '(org-level-2 :height 1.3)
-  '(org-level-3 :height 1.2)
-  '(org-level-4 :height 1.1)
-  '(org-level-5 :height 1.07)
-  '(org-level-6 :height 1.03))
 (setq so-long-threshold 220)
 
 ;;;;; markdown-header-face-*
@@ -724,7 +806,8 @@
   '(markdown-header-face-3 :height 1.2)
   '(markdown-header-face-4 :height 1.1)
   '(markdown-header-face-5 :height 1.07)
-  '(markdown-header-face-6 :height 1.03))
+  '(markdown-header-face-6 :height 1.03)
+  )
 
 ;;;;; rst-level-*
 (custom-set-faces!
@@ -733,7 +816,8 @@
   '(rst-level-3 :height 1.2)
   '(rst-level-4 :height 1.1)
   '(rst-level-5 :height 1.07)
-  '(rst-level-6 :height 1.03))
+  '(rst-level-6 :height 1.03)
+  )
 
 ;;;;; transparency
 (set-frame-parameter (selected-frame) 'alpha '(97 . 97))
@@ -742,25 +826,34 @@
 ;;;; other
 ;;;;; misc
 (setq annotate-file "~/.doom.d/other/annotations")
+
 (setq evil-escape-key-sequence "kj"
-      evil-vsplit-window-right t
-      evil-split-window-below t
       evil-escape-delay 0.2)
+
 (setq undo-limit 80000000)
+(setq evil-vsplit-window-right t)
+(setq evil-split-window-below t)
 (setq +ivy-buffer-preview t)
-(setq org-use-property-inheritance t
-      org-log-done 'time
-      org-list-allow-alphabetical t
-      org-export-in-background t
-      org-catch-invisible-edits 'error)
+(setq org-use-property-inheritance t)
+(setq org-log-done 'time)
+(setq org-list-allow-alphabetical t)
+(setq org-export-in-background t)
+(setq org-catch-invisible-edits 'error)
 
 ;;;;; spell
-(remove-hook! '(org-mode-hook TeX-mode-hook
-               rst-mode-hook mu4e-compose-mode-hook
-               message-mode-hook git-commit-mode-hook
-               prog-mode-hook text-mode-hook
-               dired-mode-hook conf-mode-hook)
+(remove-hook! '(org-mode-hook
+               TeX-mode-hook
+               rst-mode-hook
+               mu4e-compose-mode-hook
+               message-mode-hook
+               git-commit-mode-hook
+               prog-mode-hook
+               text-mode-hook
+               dired-mode-hook
+               conf-mode-hook)
              #'flyspell-mode)
+
+
 (add-hook! 'markdown-mode-hook #'flyspell-mode)
 (map! :map flyspell-mode-map
       :n "zq" 'add-word-to-pdic-c)
@@ -784,10 +877,10 @@
 
 ;;;;; one
 (setq doom-one-comment-bg t)
+
 (setq doom-one-light-brighter-modeline t
       doom-one-light-comment-bg t)
 
-;;;;; nord
 (setq doom-nord-light-brighter-comments t
       doom-nord-light-comment-bg t)
 
@@ -820,16 +913,18 @@
       modus-operandi-theme-mode-line '3d
       modus-operandi-theme-scale-headings t
       modus-operandi-theme-diffs 'desaturated
+      modus-operandi-theme-alt-style t
       modus-operandi-theme-scale-5 1.9
       modus-operandi-theme-scale-4 1.6
       modus-operandi-theme-scale-3 1.3
       modus-operandi-theme-scale-2 1.1
       modus-operandi-theme-scale-1 1.0
-      modus-operandi-theme-override-colors-alist '(("cyan-nuanced-bg" . "#fff3da") ("cyan-nuanced" . "#5d3026")))
+      modus-operandi-theme-override-colors-alist '(("cyan-nuanced-bg" . "#fff3da") ("cyan-nuanced" . "#5d3026")
+      ))
 
 ;;;;; modus-vivendi
-(setq modus-vivendi-theme-slanted-constructs t
-      modus-vivendi-theme-bold-constructs t
+(setq modus-vivendi-theme-bold-constructs t
+      modus-vivendi-theme-slanted-constructs t
       modus-vivendi-theme-org-blocks 'greyscale
       modus-vivendi-theme-prompts 'intense
       modus-vivendi-theme-completions 'opinionated
@@ -840,6 +935,7 @@
       modus-vivendi-theme-mode-line '3d
       modus-vivendi-theme-scale-headings t
       modus-vivendi-theme-diffs 'desaturated
+      modus-vivendi-theme-alt-style t
       modus-vivendi-theme-scale-5 1.9
       modus-vivendi-theme-scale-4 1.6
       modus-vivendi-theme-scale-3 1.3
@@ -855,12 +951,13 @@
       tao-theme-use-height nil)
 
 ;;;;; setq doom-theme
-(setq doom-theme 'modus-vivendi)
+(setq doom-theme 'bb)
 
 ;;;; file loads
 (load! "+functions.el")
 (load! "+config.functions.el")
 (load! "+custom.el")
+(load! "+config.elfeed.el")
 
 ;;;; profiling
 (let ((elapsed (float-time (time-subtract (current-time) t0))))

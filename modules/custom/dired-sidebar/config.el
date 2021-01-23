@@ -6,7 +6,7 @@
   :config
   (setq dired-sidebar-width 25
         dired-sidebar-theme 'ascii
-        dired-sidebar-tui-update-delay 5
+        dired-sidebar-tui-update-delay 0
         dired-sidebar-recenter-cursor-on-tui-update t
         dired-sidebar-no-delete-other-windows t
         dired-sidebar-use-custom-modeline t)
@@ -21,8 +21,8 @@
   (setq dired-subtree-cycle-depth 4
         dired-subtree-line-prefix ">")
   (map! :map dired-mode-map
-        [backtab] #'dired-subtree-cycle
         [tab] #'dired-subtree-toggle
+        [backtab] #'dired-subtree-cycle
         :n "g^" #'dired-subtree-beginning
         :n "g$" #'dired-subtree-end
         :n "gm" #'dired-subtree-mark-subtree
